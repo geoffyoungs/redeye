@@ -1,0 +1,5 @@
+lib/redeye.so
+test/correct.jpg
+test/highlight.jpg
+tmp/*
+
