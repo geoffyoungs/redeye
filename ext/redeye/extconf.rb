@@ -19,7 +19,7 @@ end
 # Look for headers in {gem_root}/ext/{package}
 if use_gems
   %w[
- glib2 gdk_pixbuf2 atk gtk2].each do |package|
+ glib2].each do |package|
     require package
     if Gem.loaded_specs[package]
       $CFLAGS += " -I" + Gem.loaded_specs[package].full_gem_path + "/ext/" + package
@@ -40,8 +40,15 @@ end
 
 $CFLAGS += " -I."
 have_func("rb_errinfo")
-PKGConfig.have_package("gtk+-2.0") or exit(-1)
-have_header("gdk-pixbuf/gdk-pixbuf.h") or exit(-1)
+PKGConfig.have_package("gdk-pixbuf-2.0") or exit(-1)
+
+unless have_header("gdk-pixbuf/gdk-pixbuf.h")
+  paths = Gem.find_files("gdk-pixbuf/gdk-pixbuf.h")
+  paths.each do |path|
+    $CFLAGS += " '-I#{File.dirname(path)}'"
+  end
+  have_header("gdk-pixbuf/gdk-pixbuf.h") or exit -1
+end
 
 STDOUT.print("checking for new allocation framework... ") # for ruby-1.7
 if Object.respond_to? :allocate
