@@ -18,6 +18,7 @@ typedef int rubber_bool;
 
 /* Prototypes */
 #include "rbglib.h"
+#include "rbgobject.h"
 
 static VALUE cRedEye;
 static VALUE
