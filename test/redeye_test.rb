@@ -1,8 +1,8 @@
-require 'test/unit'
+require 'minitest/autorun'
 require 'gdk_pixbuf2'
 require 'redeye'
 
-class TestRedeye < Test::Unit::TestCase
+class TestRedeye < Minitest::Test
   def test_detect
     pixbuf = Gdk::Pixbuf.new(File.join(File.dirname(__FILE__)+"/drawing.png"))
     redeye = RedEye.new(pixbuf, 0, 0, pixbuf.width, pixbuf.height)
